@@ -58,7 +58,7 @@ class CourseClass:
         self.btn_delete=Button(self.root,text="Delete",font=("goudy old style",15,"bold"),bg="#f44336",fg="white",cursor="hand2")
         self.btn_delete.place(x=390,y=400,width=110,height=40)
 
-        self.btn_clear=Button(self.root,text="Clear",font=("goudy old style",15,"bold"),bg="#607d8b",fg="white",cursor="hand2")
+        self.btn_clear=Button(self.root,text="Clear",font=("goudy old style",15,"bold"),bg="#607d8b",fg="white",cursor="hand2", command= self.clear)
         self.btn_clear.place(x=510,y=400,width=110,height=40)
 
         #SEARCH PANEL
@@ -105,6 +105,18 @@ class CourseClass:
         self.show()
 
 #sub function for db connection
+
+#clear 
+
+    def clear(self):
+        self.show()
+        self.var_course.set("")
+        self.var_duration.set("")
+        self.var_charges.set("")
+        self.var_search.set("")
+        self.txt_description.delete('1.0', END)
+        self.txt_course_name.config(state=NORMAL)
+
     def get_data(self, ev):
         self.txt_course_name.config(state='readonly')
         self.txt_course_name
