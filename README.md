@@ -4,7 +4,7 @@
 
 This is a comprehensive Student Result Management System developed as part of our Database Management System Lab (CSE312) course project. The system is designed to efficiently manage and display student academic records, ensuring easy access and proper organization.
 
-## ** Initial Features**
+## **Initial Features**
 
 Course Management: Add, edit, and delete course information.
 
