@@ -1,10 +1,10 @@
 # Student-Result-Management
 
-## **Features**
+## **Project Overview**
 
 This is a comprehensive Student Result Management System developed as part of our Database Management System (DBMS) course project. The system is designed to efficiently manage and display student academic records, ensuring easy access and proper organization.
 
-Features
+## **Features**
 
 Course Management: Add, edit, and delete course information.
 
