@@ -55,7 +55,7 @@ class CourseClass:
         self.btn_update=Button(self.root,text="Update",font=("goudy old style",15,"bold"),bg="#4caf50",fg="white",cursor="hand2", command=self.update)
         self.btn_update.place(x=270,y=400,width=110,height=40)
 
-        self.btn_delete=Button(self.root,text="Delete",font=("goudy old style",15,"bold"),bg="#f44336",fg="white",cursor="hand2")
+        self.btn_delete=Button(self.root,text="Delete",font=("goudy old style",15,"bold"),bg="#f44336",fg="white",cursor="hand2", command= self.delete)
         self.btn_delete.place(x=390,y=400,width=110,height=40)
 
         self.btn_clear=Button(self.root,text="Clear",font=("goudy old style",15,"bold"),bg="#607d8b",fg="white",cursor="hand2", command= self.clear)
@@ -69,7 +69,7 @@ class CourseClass:
         self.search_CourseName= Entry(self.root, textvariable=self.var_search, font=("Goudy Old Style", 15, "bold"), bg="lightyellow")
         self.search_CourseName.place(x=870, y=60, width=180)
 
-        btn_search=Button(self.root,text="Search",font=("goudy old style",15,"bold"),bg="#03a9f4",fg="white",cursor="hand2")
+        btn_search=Button(self.root,text="Search",font=("goudy old style",15,"bold"),bg="#03a9f4",fg="white",cursor="hand2", command= self.search)
         btn_search.place(x=1070,y=60,width=120,height=28)
 
         #CONTENT
@@ -116,6 +116,31 @@ class CourseClass:
         self.var_search.set("")
         self.txt_description.delete('1.0', END)
         self.txt_course_name.config(state=NORMAL)
+
+# delete
+
+    def delete(self):
+        con = sqlite3.connect(database="rms.db")
+        cur = con.cursor()
+        try:
+            if self.var_course.get()=="":
+                messagebox.showerror("Error","Course Name should be required", parent = self.root)
+            else:
+                cur.execute("select * from course where name=?",(self.var_course.get(),))
+                row = cur.fetchone()
+                if row == None:
+                    messagebox.showerror("Error","Please select course from the list first", parent = self.root)
+                else:
+                    op = messagebox.askyesno("Confirm","Do you really want to delete?", parent = self.root)
+                    if op == True:
+                        cur.execute("delete from course where name =?",(self.var_course.get(),))
+                        con.commit()
+                        messagebox.showinfo("Delete", "Course deleted successfully", parent = self.root)
+                        self.clear()
+
+        except Exception as ex:
+            messagebox.showerror("Error",f"Error due to {str(ex)}")            
+
 
     def get_data(self, ev):
         self.txt_course_name.config(state='readonly')
@@ -195,6 +220,22 @@ class CourseClass:
         cur = con.cursor()
         try:
             cur.execute("select * from course")
+            rows = cur.fetchall()
+            self.CourseTable.delete(*self.CourseTable.get_children())
+            for row in rows:
+                self.CourseTable.insert('', END, values=row)
+                
+
+        except Exception as ex:
+            messagebox.showerror("Error",f"Error due to {str(ex)}")
+
+#search
+   
+    def search(self):
+        con = sqlite3.connect(database="rms.db")
+        cur = con.cursor()
+        try:
+            cur.execute(f"select * from course where name LIKE '%{self.var_search.get()}%'")
             rows = cur.fetchall()
             self.CourseTable.delete(*self.CourseTable.get_children())
             for row in rows:
