@@ -3,6 +3,7 @@ from PIL import Image,ImageTk
 from Course import CourseClass
 from Student import StudentClass
 from  Result import ResultClass
+from clock import AnalogClock
 
 class RMS:
     def __init__(self, root):
@@ -26,26 +27,32 @@ class RMS:
         title.place(x=0, y=0, relwidth=1, height=60)
 
         #MENU
-        M_frame= LabelFrame(self.root,text="Menus",font=("times new roman",15),bg="white")
-        M_frame.place(x=10,y=70,width=1340,height=80)
+        M_frame = LabelFrame(self.root, text="Menus", font=("times new roman", 15), bg="white")
+        M_frame.place(x=10, y=70, width=1340, height=80)
 
-        btn_course=Button(M_frame,text="Course",font=("goudy old style",15,"bold"),bg="#0b5377",fg="white",cursor="hand2",command=self.add_course)
-        btn_course.place(x=20,y=5,width=200,height=40)
+        btn_course = Button(M_frame, text="Course", font=("goudy old style", 15, "bold"), bg="#0b5377",
+                            fg="white", cursor="hand2", command=self.add_course)
+        btn_course.place(x=20, y=5, width=200, height=40)
 
-        btn_student=Button(M_frame,text="Student",font=("goudy old style",15,"bold"),bg="#0b5377",fg="white",cursor="hand2",command=self.add_student)
-        btn_student.place(x=240,y=5,width=200,height=40)
+        btn_student = Button(M_frame, text="Student", font=("goudy old style", 15, "bold"), bg="#0b5377",
+                             fg="white", cursor="hand2", command=self.add_student)
+        btn_student.place(x=270, y=5, width=200, height=40)
 
-        btn_result=Button(M_frame,text="Result",font=("goudy old style",15,"bold"),bg="#0b5377",fg="white",cursor="hand2",command=self.add_result)
-        btn_result.place(x=460,y=5,width=200,height=40)
+        btn_result = Button(M_frame, text="Result", font=("goudy old style", 15, "bold"), bg="#0b5377",
+                            fg="white", cursor="hand2", command=self.add_result)
+        btn_result.place(x=520, y=5, width=200, height=40)
 
-        btn_view=Button(M_frame,text="View Student Result",font=("goudy old style",15,"bold"),bg="#0b5377",fg="white",cursor="hand2")
-        btn_view.place(x=680,y=5,width=200,height=40)
+        btn_view = Button(M_frame, text="View Student Result", font=("goudy old style", 15, "bold"),
+                          bg="#0b5377", fg="white", cursor="hand2")
+        btn_view.place(x=770, y=5, width=200, height=40)
 
-        btn_logout=Button(M_frame,text="Log Out",font=("goudy old style",15,"bold"),bg="#0b5377",fg="white",cursor="hand2")
-        btn_logout.place(x=900,y=5,width=200,height=40)
+        btn_exit = Button(M_frame, text="Exit", font=("goudy old style", 15, "bold"), bg="#0b5377",
+                          fg="white", cursor="hand2", command=self.exit_app)
+        btn_exit.place(x=1020, y=5, width=200, height=40)
 
-        btn_exit=Button(M_frame,text="Exit",font=("goudy old style",15,"bold"),bg="#0b5377",fg="white",cursor="hand2")
-        btn_exit.place(x=1120,y=5,width=200,height=40)
+        # ANALOG CLOCK
+        self.analog_clock = AnalogClock(self.root)
+        self.analog_clock.clock_frame.place(x=10, y=260, width=380, height=250)
 
         #CONTENT_WINDOW
         self.bg_img=Image.open("result.jpg")
@@ -82,6 +89,9 @@ class RMS:
     def add_result(self):
         self.new_win=Toplevel(self.root)
         self.new_obj=ResultClass(self.new_win)
+
+    def exit_app(self):
+        self.root.destroy()
 
 if __name__ == "__main__":
     root = Tk()
