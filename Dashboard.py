@@ -4,6 +4,7 @@ from Course import CourseClass
 from Student import StudentClass
 from  Result import ResultClass
 from clock import AnalogClock
+from Report import ReportClass
 
 class RMS:
     def __init__(self, root):
@@ -43,7 +44,7 @@ class RMS:
         btn_result.place(x=520, y=5, width=200, height=40)
 
         btn_view = Button(M_frame, text="View Student Result", font=("goudy old style", 15, "bold"),
-                          bg="#0b5377", fg="white", cursor="hand2")
+                          bg="#0b5377", fg="white", cursor="hand2",command=self.add_report)
         btn_view.place(x=770, y=5, width=200, height=40)
 
         btn_exit = Button(M_frame, text="Exit", font=("goudy old style", 15, "bold"), bg="#0b5377",
@@ -89,6 +90,11 @@ class RMS:
     def add_result(self):
         self.new_win=Toplevel(self.root)
         self.new_obj=ResultClass(self.new_win)
+
+        
+    def add_report(self):
+        self.new_win=Toplevel(self.root)
+        self.new_obj=ReportClass(self.new_win)
 
     def exit_app(self):
         self.root.destroy()
